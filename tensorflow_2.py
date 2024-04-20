@@ -27,7 +27,8 @@ loss = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)
 epochs = 10
 batch_size = 128
 
-# fit model
+# "compiling" model just establishes some configuation options -- still eager execution
 model.compile(optimizer=optimizer, loss=loss, metrics=['accuracy'])
+# fit model
 model.fit(x_train, y_train,
           epochs=epochs, batch_size=batch_size, validation_data=(x_test, y_test))
