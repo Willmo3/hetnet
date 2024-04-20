@@ -20,7 +20,7 @@ model = models.Sequential([
 
 # Set model parameters
 # Note: in tensorflow, explicitly set as fields to model.fit
-optimizer='adam'
+optimizer = 'adam'
 loss = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)
 epochs = 10
 batch_size = 128
