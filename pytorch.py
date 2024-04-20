@@ -7,6 +7,9 @@ import torchvision
 import torchvision.transforms as transforms
 import torch.nn as nn
 
+# TODO: use Keras data
+# I suspect this may close the performance gap
+
 
 # ***** TRAINING HELPERS ***** #
 
@@ -27,7 +30,7 @@ def train(dataloader, model, loss_fn, optimizer):
     total_loss = 0
 
     start_time = time.time()
-    for batch, (X, y) in enumerate(dataloader):
+    for X, y in dataloader:
         # Compute prediction error
         # Much more explicit
         pred = model(X)
@@ -40,11 +43,7 @@ def train(dataloader, model, loss_fn, optimizer):
 
         total_loss += loss.item()
 
-        if batch % 100 == 0:
-            print(".", end="", flush=True)
-
     print(f"Epoch time: {time.time() - start_time:.4f}(s)")
-
     return total_loss / len(dataloader)
 
 
@@ -116,8 +115,8 @@ model = nn.Sequential(
 loss_fn = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters())
 
+# Training loop
 epochs = 10
-
 for epoch in range(epochs):
     train(train_loader, model, loss_fn, optimizer)
     train_loss, train_acc = test(train_loader, model, loss_fn)
