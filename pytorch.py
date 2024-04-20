@@ -7,9 +7,6 @@ import torchvision
 import torchvision.transforms as transforms
 import torch.nn as nn
 
-# TODO: use Keras data
-# I suspect this may close the performance gap
-
 
 # ***** TRAINING HELPERS ***** #
 
