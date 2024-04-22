@@ -11,3 +11,6 @@ theano
 
 # PyTorch data store
 data
+
+__pycache__
+logs

@@ -1,8 +1,9 @@
 #!/usr/bin/env python
+from datetime import datetime
 
 import tensorflow as tf
 
-from tensorflow.keras import datasets, layers, models
+from tensorflow.keras import datasets, layers, models, callbacks
 
 # Using provided cifar10 data from keras dataset
 (x_train, y_train), (x_test, y_test) = datasets.cifar10.load_data()
@@ -27,8 +28,14 @@ loss = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)
 epochs = 10
 batch_size = 128
 
+# Define the Keras TensorBoard callback.
+logdir="logs/fit/" + datetime.now().strftime("%Y%m%d-%H%M%S")
+tensorboard_callback = callbacks.TensorBoard(log_dir=logdir)
+
+
 # "compiling" model just establishes some configuation options -- still eager execution
 model.compile(optimizer=optimizer, loss=loss, metrics=['accuracy'])
 # fit model
 model.fit(x_train, y_train,
-          epochs=epochs, batch_size=batch_size, validation_data=(x_test, y_test))
+          epochs=epochs, batch_size=batch_size, validation_data=(x_test, y_test),
+          callbacks=[tensorboard_callback])
