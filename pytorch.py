@@ -91,7 +91,6 @@ val_set = torchvision.datasets.CIFAR10(root='./data', train=False,
 val_loader = torch.utils.data.DataLoader(val_set, batch_size=batch_size, shuffle=False)
 
 # ***** DEFINE MODEL ***** #
-
 model = nn.Sequential(
     nn.Conv2d(3, 32, 3),
     nn.ReLU(),
@@ -114,6 +113,9 @@ optimizer = torch.optim.Adam(model.parameters())
 
 # Training loop
 epochs = 10
+
+start = time.time()
+
 for epoch in range(epochs):
     train(train_loader, model, loss_fn, optimizer)
     train_loss, train_acc = test(train_loader, model, loss_fn)
@@ -122,3 +124,6 @@ for epoch in range(epochs):
     train_str = f"loss: {train_loss:.4f} accuracy: {train_acc:.3f} "
     val_str = f"validation loss: {val_loss:.4f} validation accuracy: {val_acc:.3f}"
     print(f"Epoch {epoch + 1} " + train_str + val_str)
+
+end = time.time()
+print(f"Time elapsed: {end - start}")
